@@ -9,7 +9,21 @@ const app = express();
 app.use(cors());
 
 //Dirname fix
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 //Routing
-
+app.get ("/", (req, res) => {
+    res.json({ message: "Welcome to the League of Legends Sound API" });
+});
 //Serve files from the api
+app.get('/sounds/:champion/:ability', (req, res) => {
+    const { champion, ability } = req.params;
+    const soundPath = path.join(__dirname, 'assets', 'champions', champion, `${ability}.mp3`);
+    res.sendFile(soundPath, (err) => {
+        if (err) {
+            console.error("Cant find sound: ${champion} ${ability}");
+            res.status(404).json({ error: 'Sound not found' });
+        }
+    });
+});
