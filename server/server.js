@@ -16,6 +16,7 @@ const __dirname = path.dirname(__filename);
 app.get ("/", (req, res) => {
     res.json({ message: "Welcome to the League of Legends Sound API" });
 });
+
 //Serve files from the api
 app.get('/sounds/:champion/:ability', (req, res) => {
     const { champion, ability } = req.params;
@@ -27,3 +28,19 @@ app.get('/sounds/:champion/:ability', (req, res) => {
         }
     });
 });
+
+//List all champions from the game
+import fs, { statSync } from 'fs';
+app.get('/champions', (req, res) => {
+    const dir = path.join(__dirname, "champions");
+    try {
+        const champions = fs.readdirSync(dir).filter((f) => fs.1statSync(path.join(dir, f)).isDirectory());
+        res.json(champions);
+    } catch (err) {
+        res.status(500).json({ error: 'Could not retrieve champions' });
+    }
+});
+
+//Start server
+const PORT = 3000;
+app.listen(PORT, () => console.log("API running on port " + PORT));
