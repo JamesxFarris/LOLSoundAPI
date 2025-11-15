@@ -13,7 +13,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
-//THIS IS A TEMPORARY FIX FOR ABILITIES BEFORE I RECORD AND ADD THEM
+/*THIS IS A TEMPORARY FIX FOR ABILITIES BEFORE I RECORD AND ADD THEM
 const abilities = {
   "Aatrox": ["Q", "W", "E", "R"],
   "Ahri": ["Q", "W", "E", "R"],
@@ -185,7 +185,7 @@ const abilities = {
   "Zoe": ["Q", "W", "E", "R"],
   "Zyra": ["Q", "W", "E", "R"]
 };
-
+*/
 
 
 
