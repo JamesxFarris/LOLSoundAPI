@@ -199,10 +199,10 @@ app.get ("/", (req, res) => {
 });
 
 //Serve files from the api
-//GET champion ability sound
+//GET /sounds/:champion/:ability 
 app.get('/sounds/:champion/:ability', (req, res) => {
     const { champion, ability } = req.params;
-    const soundPath = path.join(__dirname, 'assets', 'sounds', champion, `${ability}.mp3`);
+    const soundPath = path.join(__dirname, 'assets', 'sounds', champion, `${ability}.ogg`);
     
     //Check if file is there
     if (!fs.existsSync(soundPath)) {
@@ -211,6 +211,20 @@ app.get('/sounds/:champion/:ability', (req, res) => {
     }
 
     res.sendFile(soundPath);
+});
+
+//GET /random/ability
+app.get("/random/ability", (req, res) => {
+    const championNames = Object.keys(abilities);
+
+    //Pick a random champion
+    const randomChampion = championNames[Math.floor(Math.random() * championNames.length)];
+
+    //Pick a random ability from that champion
+    const abilityList = abilities[randomChampion];
+    const randomAbility = abilityList[Math.floor(Math.random() * abilityList.length)];
+
+    res.json({ champion: randomChampion, ability: randomAbility });
 });
 
 //List all champions from the game
