@@ -32,9 +32,9 @@ app.get('/sounds/:champion/:ability', (req, res) => {
 //List all champions from the game
 import fs, { statSync } from 'fs';
 app.get('/champions', (req, res) => {
-    const dir = path.join(__dirname, "champions");
+    const dir = path.join(__dirname, "assets", "champions");
     try {
-        const champions = fs.readdirSync(dir).filter((f) => fs.1statSync(path.join(dir, f)).isDirectory());
+        const champions = fs.readdirSync(dir).filter((f) => fs.statSync(path.join(dir, f)).isDirectory());
         res.json(champions);
     } catch (err) {
         res.status(500).json({ error: 'Could not retrieve champions' });
