@@ -12,11 +12,12 @@
   },
   "license": "ISC",
   "author": "",
-  "type": "commonjs",
+  "type": "module",
   "main": "create_champion_folders.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "node create_champion_folders.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

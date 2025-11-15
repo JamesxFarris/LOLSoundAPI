@@ -18,13 +18,14 @@ app.get ("/", (req, res) => {
 });
 
 //Serve files from the api
+//GET champion ability sound
 app.get('/sounds/:champion/:ability', (req, res) => {
     const { champion, ability } = req.params;
-    const soundPath = path.join(__dirname, 'assets', 'champions', champion, `${ability}.mp3`);
+    const soundPath = path.join(__dirname, 'assets', 'sounds', champion, `${ability}.mp3`);
     
     //Check if file is there
     if (!fs.existsSync(soundPath)) {
-        console.error(`Sound not found: ${champion} ${ability}`);
+        console.error(`Sound not found: ${ability}`);
         return res.status(404).json({ error: "Sorry summoner, I couldn't find that sound. "})
     }
 
@@ -32,13 +33,15 @@ app.get('/sounds/:champion/:ability', (req, res) => {
 });
 
 //List all champions from the game
+//GET /champions
 import fs, { statSync } from 'fs';
 app.get('/champions', (req, res) => {
-    const dir = path.join(__dirname, "assets", "champions");
+    const dir = path.join(__dirname, "assets", "sounds");
     try {
         const champions = fs.readdirSync(dir).filter((f) => fs.statSync(path.join(dir, f)).isDirectory());
         res.json(champions);
     } catch (err) {
+        console.error(err);
         res.status(500).json({ error: 'Could not retrieve champions' });
     }
 });
